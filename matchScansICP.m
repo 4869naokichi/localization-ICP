@@ -1,7 +1,7 @@
 function pose = matchScansICP(laser, map, InitialPose)
 
 MaxIterations = 400;
-ValidDistance = 200; % [mm]
+ValidDistance = 300; % [mm]
 ScoreTolerance = 1e-6;
 
 x = InitialPose(1);

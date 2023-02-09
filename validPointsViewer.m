@@ -1,6 +1,8 @@
 clear
 clc
 
+ValidDistance = 300; % [mm]
+
 % 地図の読み込み
 map_points = readmatrix('room.csv');
 
@@ -22,8 +24,8 @@ while true
     [index, distance] = knnsearch(KDTree1, laser_points');
 
     % 有効な点のみを抽出する
-    laser_points_valid = laser_points(:, distance < 200);
-    index = index(distance < 200);
+    laser_points_valid = laser_points(:, distance < ValidDistance);
+    index = index(distance < ValidDistance);
 
     % プロット
     clf

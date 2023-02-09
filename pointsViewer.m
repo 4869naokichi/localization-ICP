@@ -2,7 +2,7 @@ clear
 clc
 
 % 地図の読み込み
-map_points = readmatrix('corridor.csv');
+map_points = readmatrix('room.csv');
 
 % LRFの初期化
 lidar = serialport('COM5', 115200, Timeout=0.1);
