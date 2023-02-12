@@ -1,6 +1,8 @@
 ICP（Iterative Closest Point）スキャンマッチングを用いた自己位置推定。
 間違っている部分があるかもしれません。
 
+![result](https://user-images.githubusercontent.com/82746098/218309982-829f6c22-6764-4ca2-9261-1d9e74692392.gif)
+
 ## 理論
 スキャン点群 $\boldsymbol{p}_i (i = 1, 2, \cdots, N)$ と地図の点群 $\boldsymbol{q}_j (j = 1, 2, \cdots, M)$ に対し以下の誤差関数（目的関数）を定義する。
 ```math
