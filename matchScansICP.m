@@ -1,7 +1,7 @@
 function pose = matchScansICP(laser, map, InitialPose)
 
 MaxIterations = 400;
-ValidDistance = 300; % [mm]
+ValidDistance = 400; % [mm]
 ScoreTolerance = 1e-6;
 
 x = InitialPose(1);
@@ -11,7 +11,7 @@ t = [x; y];
 R = [cos(theta) -sin(theta); sin(theta) cos(theta)];
 laser = R * laser + t;
 
-Eprev = Inf;
+Eprev = 0;
 count = 0;
 while count < MaxIterations
     % 最近傍点を探索
@@ -24,11 +24,7 @@ while count < MaxIterations
     index = index(distance < ValidDistance);
 
     % 誤差関数E(x)の値を計算
-    E = 0;
-    for i = 1:size(laser_valid, 2)
-        E = E + norm(map(:, index(i)) - laser_valid(:, i))^2;
-    end
-    E = E / size(laser_valid, 2);
+    E = sum((map(:, index) - laser_valid) .^ 2, 'all') / size(laser_valid, 2);
     
     % 収束判定
     deltaE = abs(Eprev - E);
@@ -60,6 +56,21 @@ end
 eul = rotm2eul([R [0; 0]; 0 0 1]);
 pose = [t(1) t(2) eul(1)];
 
-disp([num2str(count), '回反復しました。'])
+% 結果をプロット
+% x = pose(1);
+% y = pose(2);
+% theta = pose(3);
+% clf
+% hold on
+% daspect([1 1 1])
+% plot(x, y, 'bo')
+% quiver(x, y, 1000 * cos(theta), 1000 * sin(theta))
+% plot(map(1, index), map(2, index), '.')
+% plot(laser_valid(1, :), laser_valid(2, :), '.')
+% xlim([-4000 6000])
+% ylim([-2000 2000])
+% xlabel('x [mm]')
+% ylabel('y [mm]')
+% legend('', '', 'map', 'laser')
 
 end

@@ -2,7 +2,8 @@ clear
 clc
 
 % 地図の読み込み
-map = readmatrix('room.csv');
+map = readmatrix('csv/field.csv');
+map = [0 -1; 1 0] * map + [4000; 1000];
 
 % LRFの初期位置
 pose = [0 0 0];
@@ -21,20 +22,6 @@ while true
 
     % LRFの姿勢を推定
     pose = matchScansICP(laser, map, pose);
-
-    % 結果を表示
-    x = pose(1);
-    y = pose(2);
-    theta = pose(3);
-    clf
-    hold on
-    daspect([1 1 1])
-    plot(x, y, 'bo')
-    quiver(x, y, 500 * cos(theta), 500 * sin(theta))
-    xlim([-3000 3000])
-    ylim([-3000 3000])
-    xlabel('x [mm]')
-    ylabel('y [mm]')
 
     % 終了キーが押されたかの判定
     if strcmp(get(hf, 'currentcharacter'), 'q')

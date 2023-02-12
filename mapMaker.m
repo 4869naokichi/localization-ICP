@@ -2,7 +2,7 @@ close
 clear
 clc
 
-A = imread('corridor.png');
+A = imread('image/field.png');
 A = rgb2gray(A);
 L = ~logical(A);
 map = [];
@@ -19,4 +19,4 @@ daspect([1 1 1])
 xlabel('x [mm]')
 ylabel('y [mm]')
 
-writematrix(map, 'corridor.csv')
+writematrix(map, 'csv/field.csv')
